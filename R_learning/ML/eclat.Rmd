@@ -1,0 +1,21 @@
+```{r}
+library('arulesViz')
+library('arules')
+```
+
+
+```{r}
+transacoes = read.transactions("D:/FormacaoCD/30.Prática em R/dados/transacoes.txt", format = 'basket', sep=',')
+transacoes
+inspect(transacoes)
+image(transacoes)
+```
+Gera as regras
+```{r}
+regras = eclat(transacoes, parameter = list(minlen=2))
+inspect(regras)
+```
+
+```{r}
+plot(regras , method='graph', control=list(type='items'))
+```

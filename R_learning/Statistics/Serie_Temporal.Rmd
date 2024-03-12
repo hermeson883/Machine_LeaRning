@@ -1,0 +1,58 @@
+```{r}
+install.packages('forecast')
+library(forecast)
+```
+Dados
+```{r}
+AirPassengers
+start(AirPassengers) # Pegando o ano de inicio
+end(AirPassengers) # Pegando o ano de fim
+frequency(AirPassengers) # Quantidade de observações em relação a cada ano
+
+```
+
+```{r}
+plot(AirPassengers) 
+plot(aggregate(AirPassengers))
+```
+Gerando uma janela
+```{r}
+subst = window(AirPassengers, start=c(1960,1), end=c(1966,12))
+subst
+plot(subst)
+```
+```{r}
+dec = decompose(AirPassengers)
+dec
+```
+```{r}
+attributes(dec)
+dec$seasonal
+```
+```{r}
+plot(dec)
+plot(dec$x)
+plot(dec$seasonal)
+plot(dec$trend)
+plot(dec$random)
+```
+Suavização Exponencial
+```{r}
+est = ets(AirPassengers)
+est
+```
+
+```{r}
+previsao = forecast(est, h=12)
+plot(previsao)
+previsao
+```
+```{r}
+arima = auto.arima(AirPassengers)
+arima
+```
+```{r}
+previsao = forecast(arima, h=12)
+plot(previsao)
+```
+

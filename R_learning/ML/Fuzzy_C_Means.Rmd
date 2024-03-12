@@ -1,0 +1,17 @@
+```{r}
+library(factoextra)
+library(e1071)
+library(RColorBrewer)
+```
+```{r}
+cluster = cmeans(iris[,1:4], centers=3)
+cluster$membership
+```
+
+```{r}
+table(iris$Species, cluster$cluster)
+```
+```{r}
+fviz_cluster(list(data = iris[,1:4], cluster=cluster$cluster), main='Clusters', ggtheme=theme_classic())
+```
+

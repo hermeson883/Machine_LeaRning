@@ -1,0 +1,45 @@
+```{r}
+install.packages("e1071")
+library(e1071)
+```
+```{r}
+credito = read.csv('D:/FormacaoCD/30.Prática em R/dados/Credit.csv')
+head(credito)
+dim(credito)
+```
+Transformar a classe em fator
+```{r}
+credito$class = as.factor(credito$class)
+```
+Separando treino e teste
+```{r}
+amostra = sample(2,1000, replace=T, prob=c(0.7,0.3))
+amostra
+creditoTreino = credito[amostra == 1,] # Todos os valores dos indices de amostra que forem 1 o R pegará a linha correspondente
+creditoTeste = credito[amostra == 2,] # Mesma fator se aplica aqui
+```
+Dimensões do conjunto
+```{r}
+dim(creditosTreino)
+dim(creditoTeste)
+```
+Criando o modelo
+```{r}
+modelo = naiveBayes(class ~ ., creditosTreino)
+modelo
+```
+Previsao
+```{r}
+predicao = predict(modelo, creditoTeste)
+predicao
+```
+```{r}
+confusao = table(creditoTeste$class, predicao)
+taxaacerto = (confusao[1] + confusao[4]) / sum(confusao)
+taxaerro = (confusao[2] + confusao[3]) / sum(confusao)
+taxaacerto
+```
+```{r}
+
+```
+

@@ -1,0 +1,45 @@
+```{r}
+eleicao = read.csv('D:/FormacaoCD/24.Prática em R/dados/Eleicao.csv',sep=';', header=T)
+eleicao
+```
+```{r}
+plot(eleicao$DESPESAS, eleicao$SITUACAO)
+summary(eleicao)
+```
+```{r}
+cor(eleicao$DESPESAS, eleicao$SITUACAO)
+```
+```{r}
+modelo = glm(SITUACAO ~DESPESAS, data = eleicao, family = 'binomial')
+modelo
+```
+modelo comparando os dados
+```{r}
+plot(eleicao$DESPESAS, eleicao$SITUACAO, col='red', pch=20)
+points(eleicao$DESPESAS, modelo$fitted.values, pch=4, xlab='Despesas', ylab='Situação')
+```
+Testar o modelo com os proprios candidatos
+```{r}
+prever=predict(modelo, newdata = eleicao, type='response')
+prever=prever > 0.5
+table(prever)
+```
+
+Avaliar performance
+```{r}
+confusao = table(prever, eleicao$SITUACAO)
+taxaAcerto = (confusao[1] + confusao[4]) / sum(confusao)
+taxaAcerto
+```
+novosCandidatos
+```{r}
+novaEleicao = read.csv('D:/FormacaoCD/24.Prática em R/dados/NovosCandidatos.csv', sep=';')
+novaEleicao
+```
+Previsão
+```{r}
+novaEleicao$Result = predict(modelo, newdata = novaEleicao, type='response')
+novaEleicao$Result
+novaEleicao$Result > 0.5
+```
+

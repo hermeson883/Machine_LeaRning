@@ -1,0 +1,42 @@
+```{r}
+library(rpart)
+```
+
+
+```{r}
+library(forecast)
+```
+
+```{r}
+iris
+```
+Criando o modelo prevendo sepal.lenght
+```{r}
+modelo = rpart(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width + Species, data=iris)
+modelo
+summary(modelo)
+```
+
+```{r}
+plot(modelo)
+text(modelo)
+```
+
+```{r}
+predicao = predict(modelo, iris)
+head(predicao)
+```
+Comparamos previsão com dados reais
+```{r}
+comparacao = cbind(predicao, iris$Sepal.Length, predicao - iris$Sepal.Length)
+head(comparacao)
+```
+Accuracia do modelo
+```{r}
+accuracy(predicao, iris$Sepal.Length)
+```
+
+```{r}
+
+```
+

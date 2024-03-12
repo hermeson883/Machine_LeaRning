@@ -1,0 +1,35 @@
+```{r}
+library(igraph)
+```
+
+```{r}
+grafo <- graph(edges = c("Fernando", "Pedro", "José", "Antônio", "Fernando", "José", "Fernando", "Antônio"))
+V(grafo)$Peso = c(40,30,30,25)
+E(grafo)$TipoAmizade = c("Amigo", 'Inimigo', 'Inimigo', 'Amigo')
+E(grafo)$weight = c(1,2,1,3)
+V(grafo)$type = "Humanos"
+grafo
+```
+Melhorando a plotagem
+```{r}
+# Aumentando o vertex com relação ao seu peso
+plot(grafo, vertex.size = vertex_attr(grafo)$Peso)
+```
+```{r}
+# Aresta com peso
+plot(grafo, vertex.size = vertex_attr(grafo)$Peso, edge.width = edge_attr(grafo)$weight)
+```
+```{r}
+vertex_attr(grafo)$Cor = c("blue","red", "yellow", 'green')
+plot(grafo, vertex.size=vertex_attr(grafo)$Peso, edge.width = edge.attributes(grafo)$weight, vertex.color = vertex_attr(grafo)$Cor)
+```
+```{r}
+# Vertice curvado, titulo e frame
+plot(grafo, vertex.size = vertex_attr(grafo)$Peso, edge_with = edge.attributes(grafo)$Weight, vertex.color = vertex.attributes(grafo)$Cor, edge.curved=0.4, frame = T, main = 'Grafo curvado', vertex.shape = 'square')
+```
+Grafo interativo
+```{r}
+grafo_interativo = read_graph('D:/FormacaoCD/36.Prática em R/download/dados/Grafo.graphml', format = c("graphml"))
+tkplot(grafo_interativo )
+```
+

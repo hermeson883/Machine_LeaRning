@@ -1,0 +1,18 @@
+
+O número de acidentes que ocorrem em um dia é igual a 2, qual a probabilidade de ocorrerem 3 em 1 dia?      
+```{r}
+dpois(3,lambda=2)
+```
+
+O número de acidentes em um dia é igual a 2, qual a probabilidade de ocorrerem 3 ou menos em 1 dia
+
+```{r}
+ppois(3, lambda = 2)
+```
+O número de acidentes em um dia é igual a 2, qual a probabilidade de ocorrerem mais do que 3 em um 1 dia 
+```{r}
+ppois(3, lambda = 2, lower.tail = F)
+```
+```{r}
+
+```

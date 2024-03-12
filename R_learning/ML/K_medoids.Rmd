@@ -1,0 +1,18 @@
+```{r}
+library(cluster)
+library(factoextra)
+```
+Gerando cluster
+```{r}
+cluster = pam(iris[,1:4], k=3)
+```
+visualizar
+
+```{r}
+cluster
+```
+
+```{r}
+fviz_cluster(list(data = iris[,1:4], cluster=cluster$cluster), main='Clusters', ggtheme=theme_classic())
+```
+

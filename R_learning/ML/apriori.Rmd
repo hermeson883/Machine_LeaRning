@@ -1,0 +1,28 @@
+```{r}
+install.packages("arules")
+install.packages("arulesViz")
+library('arulesViz')
+library('arules')
+```
+
+
+```{r}
+transacoes = read.transactions("D:/FormacaoCD/30.Prática em R/dados/transacoes.txt", format = 'basket', sep=',')
+transacoes
+inspect(transacoes)
+image(transacoes)
+```
+
+```{r}
+regras = apriori(transacoes, parameter = list(supp=0.5,conf=0.5, minlen=2))
+regras
+summary(regras)
+inspect(regras)
+```
+Visualização
+```{r}
+plot(regras, method='graph', control=list(type='items'))
+plot(regras, method='matrix', control=list(type='items'))
+plot(regras, method='matrix3d')
+```
+

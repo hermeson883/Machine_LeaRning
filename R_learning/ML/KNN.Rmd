@@ -1,0 +1,38 @@
+```{r}
+library(class)
+```
+
+```{r}
+head(iris)
+summary(iris)
+```
+Dividimos em treino e classificação
+```{r}
+amostra = sample(2,150, replace=T, prob=c(0.7,0.3))
+iristreino = iris[amostra==1,]
+iristeste = iris[amostra==2,]
+```
+Visualizando as dimensões
+```{r}
+dim(iristreino)
+dim(iristeste)
+```
+Fazemos classificações sem criar modelo. Dados de treino (instâncias), dados de teste, classe real, número de viznhos próximos
+```{r}
+previsao = knn(iristreino[,1:4], iristeste[,1:4], iristreino[,5], k=3)
+previsao
+```
+```{r}
+tabela = table(iristeste[,5], previsao)
+```
+
+
+```{r}
+tabela
+```
+```{r}
+(tabela[1] + tabela[5] + tabela[9]) / sum(tabela)
+```
+
+
+

@@ -1,0 +1,38 @@
+```{r}
+library(rpart)
+```
+
+Carrega dados de credito e separar treino e teste
+```{r}
+credito = read.csv('D:/FormacaoCD/30.Prática em R/dados/Credit.csv')
+credito
+amostra = sample(2, 1000, replace=T, prob=c(0.7,0.3))
+creditosTreino = credito[amostra==1,]
+creditoTeste = credito[amostra==2,]
+```
+```{r}
+# Quando usado ponto estou dizendo que todas as outras colunas são variáveis independentes
+arvore = rpart(class~ ., data=creditosTreino, method = 'class')
+arvore
+```
+
+```{r}
+teste = predict(arvore,newdata = creditoTeste)
+head(teste)
+```
+```{r}
+cred = cbind(creditoTeste, teste)
+cred
+```
+
+```{r}
+cred["Result"] = ifelse(cred$bad>=0.5, 'bad','good')
+cred
+```
+matrix de confusão
+```{r}
+confusao = table(cred$class, cred$Result)
+taxaacerto = (confusao[1] + confusao[4] / sum(confusao))
+taxaAcerto
+```
+

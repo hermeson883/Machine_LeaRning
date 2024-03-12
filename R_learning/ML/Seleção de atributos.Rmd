@@ -1,0 +1,44 @@
+
+```{r}
+install.packages('randomForest')
+library(e1071)
+library("randomForest")
+```
+```{r}
+credito = read.csv('D:/FormacaoCD/30.Prática em R/dados/Credit.csv')
+credito$class = as.factor(credito$class)
+```
+
+Dividir em treino e teste
+```{r}
+set.seed(234)
+amostra = sample(2, 1000, replace=T, prob = c(0.7,0.3))
+creditotreino = credito[amostra==1,]
+creditoteste = credito[amostra==2,]
+```
+
+Criando o modelo com todos os atributos para avaliarmos a acuracia
+```{r}
+modelo = svm(class ~ .,creditotreino)
+predicao = predict(modelo, creditoteste)
+confusao = table(creditoteste$class, predicao)
+taxaacerto = (confusao[1] + confusao[4]) / sum(confusao)
+taxaacerto
+```
+Selecionando os atributos
+```{r}
+importancia = randomForest(class~.,data=creditotreino)
+col = importance(importancia)
+col
+varImpPlot(importancia, )
+```
+Criamos um segundo modelo com as variaveis independentes mais importantes
+```{r}
+modelo = svm(class ~ credit_amount + age + duration + checking_status, creditotreino)
+predicao = predict(modelo, creditoteste)
+confusao= table(creditoteste$class, predicao)
+taxaacerto = (confusao[1] + confusao[4]) / sum(confusao)
+taxaacerto
+```
+
+

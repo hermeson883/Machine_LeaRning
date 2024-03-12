@@ -1,0 +1,38 @@
+```{r}
+library(igraph)
+```
+
+Metricas
+```{r}
+grafo = read.graph('D:/FormacaoCD/36.Prática em R/download/dados/Grafo.graphml', format = "graphml")
+plot(grafo)
+#Grau de entradas e saidas
+degree(grafo, mode='all')
+#Grau de saidas
+degree(grafo, mode='out')
+#Grau de entradas
+grau_de_entradas = degree(grafo, mode='in')
+
+plot(grafo,vertex.size=grau_de_entradas)
+```
+```{r}
+#Diametro Maior distancia entre diferentes vertices
+diameter(grafo, directed = T)
+diameter(grafo, directed = F)
+
+# Vertices que foram diametros
+get_diameter(grafo, directed = T)
+get_diameter(grafo, directed = F)
+```
+Mais métricas
+```{r}
+# Vizinhança, zero inclui o proprio vertice, mode all não considera direção
+neighborhood(grafo,0,mode = c('all'))
+
+# Densidade do grafo
+edge_density(grafo)
+grafo2 = grafo
+isomorphic(grafo,grafo2)
+```
+
+

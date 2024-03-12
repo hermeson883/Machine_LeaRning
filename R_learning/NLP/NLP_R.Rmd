@@ -1,0 +1,66 @@
+```{r}
+#install.packages("tm")
+install.packages("rvest")
+#install.packages("wordcloud")
+#install.packages("RColorBrewer")
+```
+```{r}
+library(wordcloud)
+library("xml2")
+library("tm")
+library("rvest")
+library("RColorBrewer")
+```
+Criando o corpus
+```{r}
+# Fontes de dados disponiveis
+getSources()
+#Formatos
+getReaders()
+# Criando o corpus PCorpus(): Fisico, Vcorpus: Volatil em memoria
+#Pegando dados da wikipedia
+x = read_html('https://en.wikipedia.org/wiki/Artificial_intelligence')
+x = html_text(x)
+corpus = VCorpus(VectorSource(x), readerControl = list(reader=readPlain, language="eng"))
+```
+
+```{r}
+#Resumo do corpus
+inspect(corpus)
+#Corpus completo
+inspect(corpus[[1]])
+#Metadado do corpus
+meta(corpus[[1]])
+```
+
+```{r}
+#Tm_map para executar transformações
+stopwords('portuguese')
+#Remove
+corpus = tm_map(corpus, removeWords, stopwords('english'))
+# Excesso de espaços
+corpus = tm_map(corpus, stripWhitespace)
+#Pontuação
+corpus = tm_map(corpus, removePunctuation)
+#Números
+corpus = tm_map(corpus, removeNumbers)
+```
+
+```{r}
+wordcloud(corpus, max.words = 50, random.order = T, colors = rainbow(8), rot.per = 0.5, use.r.layout = T)
+```
+
+```{r}
+freq = TermDocumentMatrix(corpus)
+freq
+matriz = as.matrix(freq)
+matriz = sort(rowSums(matriz), decreasing = TRUE)
+matriz = data.frame(word=names(matriz), freq= matriz)
+head(matriz)
+findFreqTerms(freq, 200, Inf)
+removeSparseTerms(freq, 0.4)
+```
+```{r}
+wordcloud(matriz$word, matriz$freq, max.words = 50, random.order = T, colors = rainbow(50), use.r.layout = T)
+```
+

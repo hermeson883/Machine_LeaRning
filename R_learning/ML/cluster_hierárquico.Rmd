@@ -1,0 +1,26 @@
+```{r}
+library(factoextra)
+```
+
+Criando o cluster
+```{r}
+hc = hcut(iris[,-5], k=3,  hc_method = 'complete', stand=T)
+hc
+```
+```{r}
+plot(hc)
+```
+```{r}
+g1=fviz_dend(hc,show_labels = F, rect= T,ggtheme = theme_minimal(), main = 'Cluster hierarquico')
+plot(g1)
+```
+
+```{r}
+g2 = fviz_cluster(hc, ggtheme=theme_minimal())
+plot(g2)
+```
+```{r}
+plot(g1)
+plot(g2)
+```
+

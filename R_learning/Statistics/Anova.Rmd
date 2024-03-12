@@ -1,0 +1,23 @@
+
+ 
+
+```{r}
+tratamento <- read.csv('D:/FormacaoCD/18.Prática em R/dados/anova.csv', sep = ';')
+tratamento
+```
+```{r}
+boxplot(tratamento$Horas ~ tratamento$Remedio)
+```
+```{r}
+an <- aov(Horas ~ Remedio * Sexo, data=tratamento)
+summary(an)
+```
+
+```{r}
+tukey = TukeyHSD(an)
+tukey
+```
+```{r}
+plot(tukey)
+```
+

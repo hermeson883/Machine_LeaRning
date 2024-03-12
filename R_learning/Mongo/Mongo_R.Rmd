@@ -1,0 +1,21 @@
+```{r}
+install.packages('mongolite')
+library(mongolite)
+```
+```{r}
+conexao = mongo(collection = "dbmidias", db="Clientes", url= 'mongodb://localhost:27017/')
+dados = conexao$find()
+dados
+```
+
+```{r}
+d = conexao$find('{"nome":"Viriato"}')
+d
+```
+
+```{r}
+#Fechar conexão
+rm(conexao)
+gc()
+```
+

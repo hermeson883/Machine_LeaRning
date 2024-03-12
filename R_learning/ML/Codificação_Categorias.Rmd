@@ -1,0 +1,23 @@
+
+```{r}
+install.packages("mltools")
+install.packages("data.table")
+library('mltools')
+library(data.table)
+```
+```{r}
+tit = as.data.frame(Titanic)
+tit
+```
+Data da matrix é função nativa do R
+Label encoder do class, sex e age
+```{r}
+labenc = data.matrix(tit[,1:3]) # Transforma em matrix e faz o encoding do texto para números 
+labenc
+```
+
+```{r}
+hotenco = one_hot(as.data.table(tit[,1:3]))
+hotenco
+```
+

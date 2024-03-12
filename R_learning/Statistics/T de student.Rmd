@@ -1,0 +1,8 @@
+Dado um sálario de 75 a hora com uma amostra de 9 e o desvio padrão de 10. Qual a probabilidade de ser menor que 80 reais a hora
+```{r}
+pt(1.5,8)
+```
+Qual a probabilidade de ser maior que 80
+```{r}
+1 - pt(1.5,8, lower.tail = FALSE) 
+```

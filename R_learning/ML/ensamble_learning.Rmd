@@ -1,0 +1,34 @@
+```{r}
+library(randomForest)
+```
+
+```{r}
+credito = read.csv('D:/FormacaoCD/30.Prática em R/dados/Credit.csv')
+credito$class = as.factor(credito$class)
+```
+
+Treino e Teste
+```{r}
+amostra = sample(2, 1000, replace=T, prob = c(0.7,0.3))
+creditotreino = credito[amostra==1,]
+creditoteste = credito[amostra==2,]
+```
+
+Gerar modelo
+```{r}
+floresta = randomForest(class ~ ., data=creditotreino, ntree=100, importance=T)
+floresta
+plot(floresta)
+```
+Previsão
+```{r}
+previsao = predict(floresta, creditoteste)
+previsao
+confusao = table(previsao, credito$class)
+confusao
+```
+```{r}
+taxaacerto = (confusao[1] + confusao[4]) / sum(confusao)
+taxaacerto
+```
+

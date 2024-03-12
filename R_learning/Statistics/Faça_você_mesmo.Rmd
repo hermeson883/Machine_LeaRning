@@ -1,0 +1,22 @@
+```{r}
+library('corrgram')
+```
+
+
+```{r}
+file = read.csv('D:/FormacaoCD/21.Prática em R/dados/slr12.csv', sep = ';')
+file
+```
+```{r}
+cor(file)
+corrgram(file, order=T, lower.panel = panel.shade, upper.panel = panel.pie, text.panel = panel.txt, main = 'Correlação do custo inicial X Frequencial anual')
+```
+```{r}
+modelo2 = lm(CusInic~FrqAnual,data=file)
+plot(file$CusInic~file$FrqAnual, ylab = "Custo inicial", xlab='Taxa Anual', main = 'Custo inicial V Taxa Anual')
+abline(modelo)
+```
+```{r}
+predict(modelo, data.frame(FrqAnual = 1500))
+```
+

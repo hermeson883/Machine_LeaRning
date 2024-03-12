@@ -1,0 +1,29 @@
+
+```{r}
+install.packages('RPostgreSQL')
+library('RPostgreSQL')
+
+```
+Conexão com banco de dados
+```{r}
+conexão = dbConnect("PostgreSQL", dbname='AulaDS', host = 'localhost', user='postgres', password='admin')
+```
+
+```{r}
+SQL = "SELECT QUANTIDADE, VALORTOTAL, PRODUTO, TOTAL FROM ITENSVENDA IV
+      INNER JOIN VENDAS V ON (IV.IDVENDA = V.IDVENDA)
+      INNER JOIN PRODUTOS P ON (IV.IDPRODUTO = P.IDPRODUTO)"
+vendas = dbGetQuery(conexao, sql)
+```
+
+
+```{r}
+class(vendas)
+dim(vendas)
+head(vendas)
+```
+
+```{r}
+dbDisconnect(conexão)
+```
+

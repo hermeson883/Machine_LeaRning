@@ -1,0 +1,42 @@
+```{r}
+#install.packages('corrgram')
+#install.packages("dplyr")
+library(corrgram)
+library(dplyr)
+```
+Correlação entre distancia e velocidade
+```{r}
+cor(cars)
+corrgram(cars, upper.panel = panel.pie, order=T, lower.panel = panel.shade, text.panel = panel.txt, main='Carros')
+```
+Geramos o modelo usando a função LM
+Queremos prever a velocidade que o carro estava baseado na distância de parada 
+Interceptação e inclinação o quanto a variável dependente aumenta com o aumento da variável independente
+
+```{r}
+carros <- arrange(cars, dist)
+carros
+modelo = lm(speed~dist, data=carros)
+modelo
+```
+```{r}
+plot(carros$speed~carros$dist, ylab ='Velocidade', xlab = 'Distância', main='carros')
+abline(modelo)
+```
+Prevendo o resultado
+```{r}
+modelo$coefficients[1] + modelo$coefficients[2] *22
+```
+```{r}
+predict(modelo, data.frame(dist=22))
+```
+Analisando o modelo
+```{r}
+summary(modelo)
+modelo$coefficients
+modelo$residuals
+hist(modelo$residuals) # Erro residual
+modelo$fitted.values #Linha de melhor ajuste
+plot(modelo$fitted.values, cars$dist)
+```
+
